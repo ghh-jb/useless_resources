@@ -3,4 +3,4 @@ Some resources for pranks
 
 
 
-Linux only! NO WINDOWS!
+Linux only! NO WINDOWS but maybe...
