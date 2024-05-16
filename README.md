@@ -1,5 +1,5 @@
 # useless_resources
-Some resources for pranks
+Resources for my plans/ideas. For other people this is really useless.
 
 
 
