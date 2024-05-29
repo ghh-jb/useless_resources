@@ -26,4 +26,4 @@ print(ru_to_en_and_rev(string, mode))
 # this is currently in BETA 
 # TODO:
 # - Aff function instead of direct code /*DONE*/
-# - Add reverced mode en->ru (so it will be en<->ru) /*DONE*/
+# - Add reverced mode en->ru (so it will be en<->ru) /*MOSTLY DONE*/
