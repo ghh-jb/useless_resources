@@ -1,0 +1,12 @@
+def hammerit(n:int, op:int) -> int:
+    return n ** 2 if op == 1 else n - 2
+
+def bruteforce(prev:int, index:int) -> int:
+    if prev == 144:
+        return prev
+    
+    if index > 5:
+        return None
+    
+    for op in range(0,1):
+        
