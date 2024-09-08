@@ -1,0 +1,25 @@
+from random import randint
+
+i = randint(1, 2)
+
+for i in range(1000):
+    a = 2
+    asmstr = ""
+    for i in range(5):
+        cur_instruction = randint(1,2)
+        asmstr += str(cur_instruction)
+        if cur_instruction == 1:
+            a = a ** 2
+        else:
+            a = a - 2
+        
+        if a == 144:
+            print(a)
+            print(asmstr)
+
+
+
+
+
+
+
