@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define STACK_MX_SZ 64
 
@@ -56,12 +57,12 @@ void clear(stack_t *stack) {
     stack->size = 0;
     stack->top = 0;
     memset((void*)(stack), 0x0, sizeof(stack));
-    printf("ok");
+    printf("ok\n");
     return;
 }
 
 void my_exit() {
-    printf("bye");
+    printf("bye\n");
     exit(ERR_NOERR);
 }
 
@@ -79,9 +80,30 @@ void printStack(stack_t *stack) {
     printf("\n");
 }
 
+int getval(char cstr[256]) {
+    for (int i = 0; i < strlen(cstr); i++) {
+        printf("%c\n", cstr[i]);
+    }
+    return 0;
+}
+
 int main(void) {
  	stack_t stack;
     stack.size = 0;
+
+    while (true) {
+        char action[256];
+        scanf("%s", action);
+        if (strcmp(action, "exit") == 0) {
+            my_exit();
+        } else if (strcmp(action, "clear") == 0) {
+            clear(&stack);
+        } else {
+            getval(action);
+        }
+
+    }
+
     push(&stack, 4);
     push(&stack, 5);
     push(&stack, 6);
