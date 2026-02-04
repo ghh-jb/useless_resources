@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
 		return 0;
 	}
 	else if (ch == 3) {
-		system("setsid firefox");
+		system("http_proxy= https_proxy= ftp_proxy= setsid firefox");
 		printf("firefox shoud be starting, exiting\n");
 		return 0;
 	}
