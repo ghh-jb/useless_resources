@@ -19,7 +19,8 @@ void show_usage() {
 	printf("1. Exec /bin/bash with root privileges\n");
 	printf("2. Unblock iptables OUTPUT restrictions\n");
 	printf("3. Start unlocked firefox\n");
-	printf("4. (...) More to be added?\n");
+	printf("4. Add user in wheel group\n");
+	printf("5. (...) More to be added?\n");
 	printf("write your suggestions to /.flag.txt\n");
 	return;
 }
@@ -50,6 +51,14 @@ int main(int argc, char const *argv[])
 		system("http_proxy= https_proxy= ftp_proxy= setsid firefox");
 		printf("firefox shoud be starting, exiting\n");
 		return 0;
+	}
+	else if (ch == 4) {
+		int ret = setuid(0);
+		printf("ret: %i\n", ret);
+		system("useradd -N -M work");
+		system("usermod -aG wheel work");
+		printf("system user {work} created");
+		// TODO: Add automatic password setting
 	}
 	else {
 		printf("error\n");
