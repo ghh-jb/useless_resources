@@ -20,7 +20,8 @@ void show_usage() {
 	printf("2. Unblock iptables OUTPUT restrictions\n");
 	printf("3. Start unlocked firefox\n");
 	printf("4. Add user in wheel group\n");
-	printf("5. (...) More to be added?\n");
+	printf("5. Delete already added user\n");
+	printf("6. (...) More to be added?\n");
 	printf("write your suggestions to /.flag.txt\n");
 	return;
 }
@@ -50,15 +51,29 @@ int main(int argc, char const *argv[])
 	else if (ch == 3) {
 		system("http_proxy= https_proxy= ftp_proxy= setsid firefox");
 		printf("firefox shoud be starting, exiting\n");
-		return 0;
+		exit(0);
 	}
 	else if (ch == 4) {
 		int ret = setuid(0);
 		printf("ret: %i\n", ret);
-		system("useradd -N -M work");
-		system("usermod -aG wheel work");
+		system("/usr/sbin/useradd -N -M work");
+		system("/usr/sbin/usermod -aG wheel work");
 		printf("system user {work} created");
-		// TODO: Add automatic password setting
+		printf("Setting password: {password}\n");
+		system("echo 'work:password' | /usr/sbin/chpasswd");
+		printf("{work} user password: {password}\n");
+		printf("try to enter via tty3\n");
+		// DONE: Add automatic password setting
+		return 0;
+	}
+	else if (ch == 5) {
+		int ret = setuid(0);
+		printf("ret: %i\n", ret);
+		system("/usr/sbin/userdel work");
+		system("rm -rf /var/spool/mail/work");
+		// system("rm -rf /home/work"); // I do not create home directory by default
+		printf("deleted system user: {work}; removed mail\n");
+		return 0;
 	}
 	else {
 		printf("error\n");
