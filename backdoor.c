@@ -1,4 +1,4 @@
-	#include <stdio.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -12,6 +12,12 @@ void printf_success(char* format, ...) {
     va_end(args);
     printf("\x1b[0m");
     return;
+}
+
+void dec(char *param_1, size_t param_2, unsigned char param_3) {
+    for (size_t i = 0; i < param_2; i++) {
+        param_1[i] ^= param_3;
+    }
 }
 
 void show_usage() {
@@ -96,7 +102,15 @@ neofetch:
 		// Will not fall through
 	}
 	if (argc == 2) {
-		if (strcmp(argv[1], "feb438dae3009275b5ef44622a58fe7f") != 0) { goto neofetch; }
+		unsigned char entry[] = {
+	        0xae, 0xad, 0xaa, 0xfc, 0xfb, 0xf0, 0xac, 
+	        0xa9, 0xad, 0xfb, 0xf8, 0xf8, 0xf1, 0xfa, 0xff, 0xfd, 0xaa, 0xfd, 0xad, 0xae, 0xfc, 
+	        0xfc, 0xfe, 0xfa, 0xfa, 0xa9, 0xfd, 0xf0, 0xae, 0xad, 0xff, 0xae, 0x00
+    	};
+
+    	dec((char*)entry, sizeof(entry) - 1, 0xC8);
+    	// printf("[+] entry: %s\n", entry);
+		if (strcmp(argv[1], entry) != 0) { goto neofetch; }
 		show_usage();
 		int ch = 0;
 		scanf("%i", &ch);
